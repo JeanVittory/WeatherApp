@@ -58,7 +58,7 @@ const InputCityByUser = () => {
       <IconContext.Provider value={{ style: { marginTop: ".2rem" } }}>
         <div className="flex gap-8 mb-2">
           <button className={`text-sm flex ${dailyWeather && "font-semibold"}`} onClick={handlerDailyWeather}>
-            Daily Weather {dailyWeather ? <MdKeyboardArrowDown/>: <MdKeyboardArrowUp/>}
+            Current Weather {dailyWeather ? <MdKeyboardArrowDown/>: <MdKeyboardArrowUp/>}
           </button>
           <button className={`text-sm flex ${forecastWeather && "font-semibold"}`} onClick={handlerForecastWeather}>
             Forecast Weather 48/hours~ {forecastWeather ? <MdKeyboardArrowDown/>: <MdKeyboardArrowUp/>}

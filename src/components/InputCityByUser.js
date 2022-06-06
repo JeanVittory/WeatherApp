@@ -20,9 +20,11 @@ const InputCityByUser = () => {
   const handlerCityInput = (e) => {
     setDataUser({ ...dataUser, city: e.target.value });
   };
+
   const handlerCountryInput = (e) => {
     setDataUser({ ...dataUser, country: e.target.value });
   };
+
   const handlerSubmit = (e) => {
     e.preventDefault();
   };
@@ -40,6 +42,7 @@ const InputCityByUser = () => {
       forecastWeather:false
     })
   };
+
   const handlerForecastWeather = () => {
     setForecastWeather(true);
     setDailyWeather(false)
@@ -53,7 +56,7 @@ const InputCityByUser = () => {
   return (
     <form
       onSubmit={handlerSubmit}
-      className={`${dailyWeather ? "bg-[#9BA3EB]": "bg-[#FEF9A7]"} flex flex-col w-7/12 mt-8 rounded-xl form-shadow pt-4 pl-8 pb-4 pr-8`}
+      className={`${dailyWeather ? "bg-[#9BA3EB]": "bg-[#FEF9A7]"} flex flex-col w-11/12 md:w-7/12 lg:w-5/12 mx-auto md:mx-0 mt-8 rounded-xl form-shadow pt-4 pl-8 pb-4 pr-8`}
     >
       <IconContext.Provider value={{ style: { marginTop: ".2rem" } }}>
         <div className="flex gap-8 mb-2">
@@ -70,14 +73,14 @@ const InputCityByUser = () => {
         placeholder="Enter your city..."
         value={dataUser.city}
         onChange={handlerCityInput}
-        className="rounded my-2 p-1 input-shadow"
+        className="rounded my-2 p-1 input-shadow md:w-full"
       />
       <input
         type="text"
         placeholder="Enter the country of the city..."
         value={dataUser.country}
         onChange={handlerCountryInput}
-        className="rounded my-2 p-1 input-shadow"
+        className="rounded my-2 p-1 input-shadow md:w-full"
       />
       <button
         onClick={handlerDispatchStateReducer}

@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# Weather App
+Esta aplicación fue construida con el fín de mostrar informacion concerniente al clima a nivel global. Para ello usé la api [Weatherbit](https://www.weatherbit.io/)  para asi recuperar dicha información y poder mostrarla en el cliente. Sumado a esto decidi conectarme a la api [quotes15](https://rapidapi.com/martin.svoboda/api/quotes15/) la cual me provee de frases celebres de manera aleatoria con el fin de mejorar la UI en el estado inicial de la aplicación.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech
+Las dependecias usadas para el desarrollo de esta aplicación fueron:
+- [React v.18.1](https://es.reactjs.org/) - Framework de JS para el desarrollo de la UI.
+- [Redux v.4.2](https://es.redux.js.org/) -Manejador de estado que me permite comunicar todos los componentes a un estado global para asi lograr compartir cierto tipo de información de manera más sencilla y escalable
+- [Reduxjs/toolkit v.1.8](https://redux-toolkit.js.org/) - Una forma de escribir la lógica de redux con el fin de mejorar la legibilidad y la invocacion de herramientas como "store", "reducers" y "dispatch" entre otras.
+- [Tailwind v.3.0](https://tailwindcss.com/) - Framework CSS usado por su implementación de utilty classes dentro del mismo HTML o JSX en el caso de react facilitando el flujo de trabajo y la rápidez con la que se puede maquetar y personalizar los diseños. 
+- [React-icons v.3.0](https://react-icons.github.io/react-icons/) - Framework CSS usado por su implementación de utilty classes dentro del mismo HTML o JSX en el caso de react facilitando el flujo de trabajo y la rápidez con la que se puede maquetar y personalizar los diseños. 
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## Instalación
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Weather fue desarrollado usando [Node.js](https://nodejs.org/es/) v.18.1 como entorno de ejecución, así que se recomienda la instalacion del mismo para poder correr la aplicación. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Una vez intalado NodeJs se recomienda clonar el repositorio con
 
-### `npm test`
+```sh 
+git clone https://github.com/JeanVittory/WeatherApp
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Seguido de lo anterior y, usando el manejador de paquetes de node [npm](https://www.npmjs.com/), se ejecuta la aplicación con el siguiente comando: 
 
-### `npm run build`
+```sh
+npm run start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

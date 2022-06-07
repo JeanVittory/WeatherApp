@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { dataFetchReducer } from "../features/inputCity";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import {MdKeyboardArrowUp} from "react-icons/md"
+import { MdKeyboardArrowUp } from "react-icons/md";
 import { IconContext } from "react-icons";
 
 const InputCityByUser = () => {
   const [dataUser, setDataUser] = useState({
     city: "",
     country: "",
-    dailyWeather:true,
-    forecastWeather:false
+    dailyWeather: true,
+    forecastWeather: false,
   });
   const [dailyWeather, setDailyWeather] = useState(true);
   const [forecastWeather, setForecastWeather] = useState(false);
@@ -30,41 +30,55 @@ const InputCityByUser = () => {
   };
 
   const handlerDispatchStateReducer = () => {
+    const city = dataUser.city;
+    const country = dataUser.country;
+    if (!isNaN(city)) return 
+    if( !isNaN(country)) return
     dispatch(dataFetchReducer(dataUser));
   };
 
   const handlerDailyWeather = () => {
     setDailyWeather(true);
-    setForecastWeather(false)
+    setForecastWeather(false);
     setDataUser({
-      ...dataUser, 
-      dailyWeather:true, 
-      forecastWeather:false
-    })
+      ...dataUser,
+      dailyWeather: true,
+      forecastWeather: false,
+    });
   };
 
   const handlerForecastWeather = () => {
     setForecastWeather(true);
-    setDailyWeather(false)
+    setDailyWeather(false);
     setDataUser({
-      ...dataUser, 
-      dailyWeather:false, 
-      forecastWeather:true
-    })
+      ...dataUser,
+      dailyWeather: false,
+      forecastWeather: true,
+    });
   };
 
   return (
     <form
       onSubmit={handlerSubmit}
-      className={`${dailyWeather ? "bg-[#9BA3EB]": "bg-[#FEF9A7]"} flex flex-col w-11/12 md:w-7/12 lg:w-5/12 mx-auto md:mx-0 mt-8 rounded-xl form-shadow pt-4 pl-8 pb-4 pr-8`}
+      className={`${
+        dailyWeather ? "bg-[#9BA3EB]" : "bg-[#FEF9A7]"
+      } flex flex-col w-11/12 md:w-7/12 lg:w-5/12 mx-auto md:mx-0 mt-8 rounded-xl form-shadow pt-4 pl-8 pb-4 pr-8`}
     >
       <IconContext.Provider value={{ style: { marginTop: ".2rem" } }}>
         <div className="flex gap-8 mb-2">
-          <button className={`text-sm flex ${dailyWeather && "font-semibold"}`} onClick={handlerDailyWeather}>
-            Current Weather {dailyWeather ? <MdKeyboardArrowDown/>: <MdKeyboardArrowUp/>}
+          <button
+            className={`text-sm flex ${dailyWeather && "font-semibold"}`}
+            onClick={handlerDailyWeather}
+          >
+            Current Weather{" "}
+            {dailyWeather ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
           </button>
-          <button className={`text-sm flex ${forecastWeather && "font-semibold"}`} onClick={handlerForecastWeather}>
-            Forecast Weather 48/hours~ {forecastWeather ? <MdKeyboardArrowDown/>: <MdKeyboardArrowUp/>}
+          <button
+            className={`text-sm flex ${forecastWeather && "font-semibold"}`}
+            onClick={handlerForecastWeather}
+          >
+            Forecast Weather 16/days~{" "}
+            {forecastWeather ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
           </button>
         </div>
       </IconContext.Provider>

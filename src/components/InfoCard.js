@@ -7,11 +7,9 @@ import { SpinnerCircular } from "spinners-react";
 const InforCard = () => {
   const dataFromRedux = useSelector((state) => state.dataWeather);
   const dataWeather = { ...dataFromRedux.data };
-  console.log(dataWeather);
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    //const date = new Date().getHours();
     const fetchImage = async () => {
       try {
         const response = await import(
@@ -46,15 +44,25 @@ const InforCard = () => {
             </p>
           </div>
           <div className="w-full flex flex-col justify-start p-2 mb-2">
-            <p className="font-nunito text-xs">{currentDate}</p>
+            {dataWeather.city_name && (
+              <p className="font-nunito text-xs">{currentDate}</p>
+            )}
             <IconContext.Provider value={{ style: {} }}>
-              <div className="flex gap-1 mt-1">
-                <RiMapPinLine />
-                <span className="uppercase font-nunito font-semibold">
-                  {dataWeather.city_name}, {dataWeather.country_code}
-                </span>
-              </div>
+              {dataWeather.city_name && (
+                <div className="flex gap-1 mt-1">
+                  <RiMapPinLine />
+                  <span className="uppercase font-nunito font-semibold">
+                    {dataWeather.city_name}, {dataWeather.country_code}
+                  </span>
+                </div>
+              )}
             </IconContext.Provider>
+            {dataWeather.min_temp && (
+              <>
+                <p className="font-nunito text-xs mb-1">Min: {dataWeather.min_temp}º</p>
+                <p className="font-nunito text-xs">Max: {dataWeather.max_temp}º</p>
+              </>
+            )}
           </div>
         </article>
       ) : (

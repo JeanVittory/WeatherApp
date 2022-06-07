@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { dataWeather } from "../features/dataWeather";
 import InforCard from "./InfoCard";
 import blooming from "../assets/blooming.svg";
-import { SpinnerCircular } from 'spinners-react';
+import { SpinnerCircular } from "spinners-react";
 
 const CardsContainer = () => {
-  const apiKey = "ddb1d54458c1471aa6fab0b4cb187fa6";
+  const apiKey = process.env.REACT_APP_keyWeatherApi;
   const [quote, setQuote] = useState({});
   const dataCityFromRedux = useSelector((state) => state.dataUser.value.city);
   const dataCountryFromRedux = useSelector(
@@ -17,16 +17,22 @@ const CardsContainer = () => {
   );
   const dispatch = useDispatch();
 
+  const fetchWithTimeOut = async (request, options= {}) =>{
+    const {timeout = 8000} = options
+    const abortController = new AbortController();
+    const time = setTimeout(() => abortController.abort(), timeout)
+    const response = await fetch(request, {
+      signal: abortController.signal
+    })
+    clearTimeout(time)
+    return response
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (dataCityFromRedux === "" && dataCountryFromRedux === "") {
-          return;
-        }
         if (dataDailyWeather) {
-          const response = await fetch(
-            `https://api.weatherbit.io/v2.0/current?&city=${dataCityFromRedux}&country=${dataCountryFromRedux}&key=${apiKey}`
-          );
+          const response = await fetchWithTimeOut( `https://api.weatherbit.io/v2.0/current?&city=${dataCityFromRedux}&country=${dataCountryFromRedux}&key=${apiKey}`,{ timeout: 8000}) 
           if (response.status >= 400) {
             throw new Error(
               `Something happend. error ${response.status}: ${response.statusText}`
@@ -36,9 +42,7 @@ const CardsContainer = () => {
           const dataWeatherFetched = { ...dataResponse.data[0] };
           dispatch(dataWeather(dataWeatherFetched));
         } else {
-          const response = await fetch(
-            `https://api.weatherbit.io/v2.0/forecast/hourly?city=${dataCityFromRedux}&country=${dataCountryFromRedux}&key=${apiKey}`
-          );
+          const response = await fetchWithTimeOut(`https://api.weatherbit.io/v2.0/forecast/daily?&city=${dataCityFromRedux}&country=${dataCountryFromRedux}&key=${apiKey}`,{timeout: 8000}) 
           if (response.status >= 400) {
             throw new Error(
               `Something happend. error ${response.status}: ${response.statusText}`
@@ -49,8 +53,8 @@ const CardsContainer = () => {
           dispatch(dataWeather(dataWeatherFetched));
         }
       } catch (error) {
-        return error;
-      }
+        return error.name === 'AbortError' && 'AbortError';
+      } 
     };
     fetchData();
   }, [dataCityFromRedux, dataCountryFromRedux]);
@@ -62,19 +66,22 @@ const CardsContainer = () => {
         headers: {
           "X-RapidAPI-Host": "quotes15.p.rapidapi.com",
           "X-RapidAPI-Key":
-            "4331bbb705msh2fa0729ca113689p16cabejsn017ad6ba18d7",
+            `${process.env.REACT_APP_keyRapidApi}`,
         },
       };
-      const response = await fetch(
-        "https://quotes15.p.rapidapi.com/quotes/random/?language_code=en",
-        options
-      );
-      const dataQuote = await response.json();
-      console.log(dataQuote);
-      setQuote({
-        author: dataQuote.originator?.name,
-        content: dataQuote.content,
-      });
+      try {
+        const response = await fetch(
+          "https://quotes15.p.rapidapi.com/quotes/random/?language_code=en",
+          options
+        );
+        const dataQuote = await response.json();
+        setQuote({
+          author: dataQuote.originator?.name,
+          content: dataQuote.content,
+        });
+      } catch (error) {
+        console.log(error)
+      }
     };
     fetchQuotes();
   }, []);
@@ -95,11 +102,16 @@ const CardsContainer = () => {
             <q className="text-sm font-nunito">{quote.content}</q>
           </div>
         </div>
-      ): (
+      ) : (
         <div className="flex mt-40">
-          <SpinnerCircular size={50} thickness={100} speed={100} color="rgba(172, 57, 57, 1)" secondaryColor="rgba(57, 101, 172, 0.44)" />
+          <SpinnerCircular
+            size={50}
+            thickness={100}
+            speed={100}
+            color="rgba(172, 57, 57, 1)"
+            secondaryColor="rgba(57, 101, 172, 0.44)"
+          />
         </div>
-
       )}
     </section>
   );

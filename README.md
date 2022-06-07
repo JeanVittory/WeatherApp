@@ -24,6 +24,7 @@ git clone https://github.com/JeanVittory/WeatherApp
 Seguido de lo anterior y, usando el manejador de paquetes de node [npm](https://www.npmjs.com/), se ejecuta la aplicación con el siguiente comando: 
 
 ```sh
+npm install
 npm run start
 ```
 
